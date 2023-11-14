@@ -5,7 +5,7 @@ const PORT = 3001;
 const saveCountries = require("./src/handlers/saveCountries");
 
 conn
-  .sync({ force: true })
+  .sync()
   .then(() => {
     server.listen(PORT, () => {
       saveCountries();

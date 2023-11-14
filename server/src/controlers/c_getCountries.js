@@ -1,10 +1,8 @@
 require("dotenv").config();
-const axios = require("axios");
 const { Op } = require("sequelize");
 const { Country, Activity } = require("../db.js");
 
 const c_getCountries = async (name) => {
-  console.log(name);
   let dataDB = [];
   if (name) {
     dataDB = await Country.findAll({
