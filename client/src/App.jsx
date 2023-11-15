@@ -1,20 +1,24 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Create from "./Views/Create/Create";
 import Home from "./Views/Home/Home";
 import Detail from "./Views/Detail/Detail";
 import Landing from "./Views/Landing/Landing";
+import NavBar from "./Components/Navbar/Navbar";
+import { useLocation } from "react-router-dom";
+
 function App() {
+  const location = useLocation();
+
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" Component={Landing} />
-          <Route path="/home" Component={Home} />
-          <Route path="/detail:id" Component={Detail} />
-          <Route path="/create" Component={Create} />
-        </Routes>
-      </BrowserRouter>
+      {location.pathname !== "/" && <NavBar />}
+      <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/create" element={<Create />} />
+      </Routes>
     </div>
   );
 }

@@ -1,7 +1,19 @@
-//import React from "react";
+import style from "./Card.module.css";
+import { Link } from "react-router-dom";
 
-const Card = () => {
-  return <div>Card</div>;
+const Card = ({ country }) => {
+  console.log("El país que llega a la tarjeta es: ", country);
+
+  return (
+    <div className={style.contenedor}>
+      <Link to={`/detail/${country.id}`}>
+        <img src={country.flag} alt={country.name} />
+        <p>{country.name}</p>
+        <p>Continente</p>
+        <p>{country.region}</p>
+      </Link>
+    </div>
+  );
 };
 
 export default Card;

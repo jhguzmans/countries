@@ -1,0 +1,13 @@
+export const GET_COUNTRIES = "GET_COUNTRIES";
+export const SEARCH_COUNTRY = "SEARCH_COUNTRY";
+export const RESET_SEARCH = "RESET_SEARCH";
+export const FILTER = "FILTER";
+export const ORDER = "ORDER";
+export const FILTER_CONTINENT = "FILTER_CONTINENT";
+export const FILTER_ACTIVITY = "FILTER_ACTIVITY";
+export const POKE_RENDER = "POKE_RENDER";
+export const NEXT_PAGE = "NEXT_PAGE";
+export const PREV_PAGE = "PREV_PAGE";
+export const SET_PAGE = "SET_PAGE";
+export const CURRENT_COUNTRIES = "CURRENT_COUNTRIES";
+export const SORT = "SORT";

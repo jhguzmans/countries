@@ -1,0 +1,62 @@
+/* Estilos para el componente Form */
+.form {
+  background: linear-gradient(
+    45deg,
+    #110505,
+    #444444
+  ); /* Degradado de rojo a rojo oscuro */
+  color: white;
+  padding: 20px;
+  margin-top: 0; /* Asegura que comience debajo de la barra de navegación */
+  min-height: calc(
+    100vh - 80px
+  ); /* Establece la altura mínima para llenar la pantalla */
+  overflow: auto; /* Agrega una barra de desplazamiento cuando el contenido es largo */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Estilos para los campos de entrada y etiquetas */
+label {
+  font-weight: bold;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 30%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Estilos para los mensajes de error */
+.danger {
+  color: red;
+  font-size: 0.8rem;
+}
+
+/* Estilos para el botón */
+.button {
+  background: #ff0000; /* Fondo rojo */
+  color: white;
+  border: none;
+  padding: 15px 30px; /* Aumentamos el tamaño del botón */
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: block; /* Alineamos el botón al centro */
+  margin: 0 auto; /* Alineamos el botón al centro */
+}
+
+.button:hover {
+  background: #f80606; /* Fondo rojo oscuro en hover */
+}

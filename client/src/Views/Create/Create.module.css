@@ -1,0 +1,17 @@
+/* Estilos para el componente Create */
+.create {
+  background: linear-gradient(
+    45deg,
+    #110505,
+    #444444
+  ); /* Degradado de rojo a rojo oscuro */
+  color: white;
+  padding: 20px;
+  margin-top: 0; /* Asegura que comience debajo de la barra de navegación */
+  min-height: calc(
+    100vh - 80px
+  ); /* Establece la altura mínima para llenar la pantalla */
+  overflow: auto; /* Agrega una barra de desplazamiento cuando el contenido es largo */
+}
+
+/* Asegúrate de que el componente Create en tu componente React tenga la clase "create" asignada. */

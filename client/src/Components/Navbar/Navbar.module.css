@@ -1,0 +1,39 @@
+.Nav {
+  background: linear-gradient(
+    45deg,
+    #000000,
+    #808080
+  ); /* Degradado de negro a gris */
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%; /* Ocupa todo el ancho de la pantalla */
+
+  top: 0;
+  left: 0;
+  z-index: 1; /* Asegura que esté por encima de otros elementos */
+}
+
+img {
+  height: 1.5cm; /* Ajusta la altura de la imagen a 1.5 cm */
+  margin-right: 10px; /* Agrega un margen a la derecha de la imagen */
+}
+
+/* Estilos para los enlaces y otros elementos dentro de la barra de navegación */
+.Nav > * {
+  display: inline; /* Hace que los elementos se muestren en línea */
+  margin: 0 10px; /* Agrega margen horizontal entre elementos */
+}
+
+/* Estilos para los enlaces */
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline; /* Subraya los enlaces al pasar el ratón por encima */
+}

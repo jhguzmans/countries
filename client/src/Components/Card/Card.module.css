@@ -1,0 +1,48 @@
+.contenedor {
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #990000
+  ); /* Degradado de rojo a rojo oscuro */
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #000000; /* Borde negro */
+  border-radius: 5px;
+  margin: 10px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.contenedor:hover {
+  background: linear-gradient(
+    45deg,
+    #990000,
+    #000000
+  ); /* Degradado de rojo oscuro a negro */
+  color: white;
+  text-decoration: none;
+}
+
+.contenedor a {
+  text-decoration: none;
+  color: white;
+}
+
+.contenedor img {
+  max-width: 100px;
+  max-height: 100px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+/* Estilos para los textos "Nombre" y "Tipos" */
+.contenedor p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Estilos para los tipos */
+.contenedor p:not(:first-child) {
+  font-weight: normal;
+}
