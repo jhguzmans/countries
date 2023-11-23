@@ -1,0 +1,42 @@
+/* styles.module.css */
+
+.tableContainer {
+  margin-top: 20px;
+}
+
+.table {
+  background-color: #f35050;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 3px solid #333; /* Negro */
+  padding: 8px;
+  text-align: center;
+}
+
+.button {
+  margin-top: 10px;
+  padding: 8px;
+  cursor: pointer;
+  background-color: #f35050; /* Amarillo */
+  color: #333; /* Negro */
+}
+
+.message {
+  margin-top: 10px;
+  background-color: #af5b4c; /* Verde */
+  color: white;
+  padding: 8px;
+  display: inline-block;
+}
+
+/* form.module.css */
+
+.formContainer {
+  margin-top: 20px;
+}
+
+/* Puedes agregar más estilos de acuerdo a tu preferencia de colores */

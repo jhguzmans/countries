@@ -50,7 +50,7 @@ const Detail = () => {
       ) : (
         <p>Cargando datos...</p>
       )}
-      <button classid={style.button}>
+      <button className={style.button}>
         <Link to="/home">Home</Link>
       </button>
     </div>

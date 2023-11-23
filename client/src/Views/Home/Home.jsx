@@ -1,17 +1,25 @@
-//import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import Paginado from "../../Components/Paginado/Paginado";
 import Cards from "./../../Components/Cards/Cards";
-import { getCountries } from "../../redux/actions";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { reset_search } from "../../redux/actions";
+
 const Home = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCountries());
-  }, [dispatch]);
-
-  let currentCountries = useSelector((state) => state.currentCountries);
-  return <div>{<Cards countries={currentCountries} />}</div>;
+  const renderCountries = useSelector((state) => state.renderCountries);
+  const currentCountries = useSelector((state) => state.currentCountries);
+  const handleMostrar = () => {
+    dispatch(reset_search(currentCountries));
+  };
+  return (
+    <div>
+      {<Cards countries={renderCountries} />}
+      {renderCountries.length === 1 ? (
+        <button onClick={handleMostrar}>Mostrar todos</button>
+      ) : (
+        <div></div>
+      )}
+      <Paginado />
+    </div>
+  );
 };
 export default Home;

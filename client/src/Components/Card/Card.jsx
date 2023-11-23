@@ -2,8 +2,6 @@ import style from "./Card.module.css";
 import { Link } from "react-router-dom";
 
 const Card = ({ country }) => {
-  console.log("El país que llega a la tarjeta es: ", country);
-
   return (
     <div className={style.contenedor}>
       <Link to={`/detail/${country.id}`}>

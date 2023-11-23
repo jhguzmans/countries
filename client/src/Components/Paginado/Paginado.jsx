@@ -1,22 +1,20 @@
 import style from "./Paginado.module.css";
-import React from "react";
-import { useEffect } from "react"; // Agrega "useState"
-
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   nextPage,
   prevPage,
   setPage,
-  currentPokemons,
+  doCurrentCountries,
 } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import {} from "react-redux";
 
 const Paginado = () => {
   const dispatch = useDispatch();
-  const pokXpage = 6;
-  const allPokemons = useSelector((state) => state.allPokemons);
-  let pokeRender = useSelector((state) => state.pokeRender);
-  const pokeName = useSelector((state) => state.pokeName);
+  const countryXpage = 10;
+  const currentCountries = useSelector((state) => state.currentCountries);
+  let countryRender = useSelector((state) => state.countryRender);
+  const countryName = useSelector((state) => state.countryName);
   const currentPage = useSelector((state) => state.currentPage);
   const handlePageClick = (pageNumber) => {
     if (pageNumber === "prev" && currentPage > 1) {
@@ -27,29 +25,36 @@ const Paginado = () => {
       dispatch(setPage(pageNumber));
     }
   };
-  const totPok = allPokemons.length;
-  const indexOfLastPokemon = currentPage * pokXpage;
-  const indexOfFirstPokemon = indexOfLastPokemon - pokXpage;
-  if (pokeName.length === 1) {
-    pokeRender = pokeName;
-  } else {
-    pokeRender = allPokemons;
-  }
+  const totalCountries = currentCountries.length;
+  const indexOfLastCountry = currentPage * countryXpage;
+  const indexOfFirstCountry = indexOfLastCountry - countryXpage;
   useEffect(() => {
+    if (countryName.length === 1) {
+      countryRender = countryName;
+    } else {
+      countryRender = currentCountries;
+    }
     dispatch(
-      currentPokemons(pokeRender, indexOfFirstPokemon, indexOfLastPokemon)
+      doCurrentCountries(countryRender, indexOfFirstCountry, indexOfLastCountry)
     );
   }, [
     dispatch,
     currentPage,
-    indexOfFirstPokemon,
-    indexOfLastPokemon,
-    pokeRender,
+    indexOfFirstCountry,
+    indexOfLastCountry,
+    countryRender,
+    currentCountries,
+    countryName,
   ]);
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totPok / pokXpage); i++) {
+  for (let i = 1; i <= Math.ceil(totalCountries / countryXpage); i++) {
     pageNumbers.push(i);
   }
+  const last = pageNumbers.length;
+  const penu = last - 1;
+  const first = 1;
+  const lessOne = currentPage - 1;
+  const plusOne = currentPage + 1;
   return (
     <div className={style.container}>
       {currentPage !== 1 && (
@@ -57,11 +62,40 @@ const Paginado = () => {
           Prev
         </button>
       )}
-      {pageNumbers.map((number) => (
-        <button key={number} onClick={() => handlePageClick(number)}>
-          {number}
+      {currentPage > 1 && (
+        <button key={first} onClick={() => handlePageClick(first)}>
+          {first}
         </button>
-      ))}
+      )}
+      <p>...</p>
+      {lessOne > 1 && (
+        <button key={lessOne} onClick={() => handlePageClick(lessOne)}>
+          {lessOne}
+        </button>
+      )}
+      <button
+        key={currentPage}
+        className={style.current}
+        onClick={() => handlePageClick(currentPage)}
+      >
+        {currentPage}
+      </button>
+      {plusOne < penu && (
+        <button key={plusOne} onClick={() => handlePageClick(plusOne)}>
+          {plusOne}
+        </button>
+      )}
+      <p>.........</p>
+      {currentPage < penu && (
+        <button key={penu} onClick={() => handlePageClick(penu)}>
+          {penu}
+        </button>
+      )}
+      {currentPage < last && (
+        <button key={last} onClick={() => handlePageClick(last)}>
+          {last}
+        </button>
+      )}
       {currentPage !== pageNumbers.length && (
         <button key="next" onClick={() => handlePageClick("next")}>
           Next

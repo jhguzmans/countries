@@ -13,9 +13,7 @@ const SearchBar = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     console.log("Lo enviado es: " + state.toLowerCase());
-    event.preventDefault();
     dispatch(search_country(state.toLowerCase()));
   };
 

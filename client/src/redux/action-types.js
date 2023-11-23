@@ -1,4 +1,8 @@
 export const GET_COUNTRIES = "GET_COUNTRIES";
+export const GET_ACTIVITIES = "GET_ACTIVITIES";
+export const DELETE_ACTIVITIES = "DELETE_ACTIVITIES";
+export const CLEAR_FILTERS = "CLEAR_FILTERS";
+export const CLEAR_SORTS = "CLEAR_SORTS";
 export const SEARCH_COUNTRY = "SEARCH_COUNTRY";
 export const RESET_SEARCH = "RESET_SEARCH";
 export const FILTER = "FILTER";
@@ -9,5 +13,5 @@ export const POKE_RENDER = "POKE_RENDER";
 export const NEXT_PAGE = "NEXT_PAGE";
 export const PREV_PAGE = "PREV_PAGE";
 export const SET_PAGE = "SET_PAGE";
-export const CURRENT_COUNTRIES = "CURRENT_COUNTRIES";
+export const DO_CURRENT_COUNTRIES = "DO_CURRENT_COUNTRIES";
 export const SORT = "SORT";

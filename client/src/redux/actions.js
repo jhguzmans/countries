@@ -1,9 +1,17 @@
 import {
   GET_COUNTRIES,
+  GET_ACTIVITIES,
   SEARCH_COUNTRY,
   FILTER_ACTIVITY,
   FILTER_CONTINENT,
   SORT,
+  NEXT_PAGE,
+  SET_PAGE,
+  PREV_PAGE,
+  DO_CURRENT_COUNTRIES,
+  RESET_SEARCH,
+  CLEAR_FILTERS,
+  CLEAR_SORTS,
 } from "./action-types";
 import axios from "axios";
 
@@ -24,6 +32,37 @@ export const getCountries = () => {
     }
   };
 };
+
+export const getActivities = () => {
+  const URL = "http://localhost:3001/activities";
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(URL);
+      if (!data.length) throw Error("No hay actividades");
+      else {
+        return dispatch({
+          type: GET_ACTIVITIES,
+          payload: data,
+        });
+      }
+    } catch (error) {
+      return error.message;
+    }
+  };
+};
+
+export const deleteActivity = (id) => {
+  return async (dispatch) => {
+    try {
+      const data = await axios.delete(`http://localhost:3001/activity/${id}`);
+      console.log(data);
+      dispatch(getActivities());
+    } catch (error) {
+      return error.message;
+    }
+  };
+};
+
 export const search_country = (name) => {
   return async (dispatch) => {
     const URL = "http://localhost:3001/countries";
@@ -45,90 +84,95 @@ export const search_country = (name) => {
   };
 };
 
-// export const reset_search = (pokemons) => {
-//   return (dispatch) => {
-//     console.log("los pokemons en el reset search son:");
-//     console.log(pokemons);
-//     dispatch({
-//       type: RESET_SEARCH,
-//       payload: pokemons,
-//     });
-//   };
-// };
+export const reset_search = (countries) => {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_SEARCH,
+      payload: countries,
+    });
+  };
+};
 
 export const filter_activity = (activity, countries) => {
   return (dispatch) => {
-    console.log("la actividad con la que se deben filtar es:", activity);
-    console.log("Los paises para filtrar en la action son:", countries);
     try {
-      if (countries && countries.length > 0) {
-        const countriesFiltered = countries.filter((country) => {
-          return country.Activities.some((activi) => activi.name === activity);
+      if (!countries || countries.length === 0) {
+        throw new Error("No hay países para filtrar");
+      }
+
+      const countriesFiltered = countries.filter((country) => {
+        return country.Activities.some((activi) => activi.name === activity);
+      });
+
+      if (countriesFiltered.length > 0) {
+        dispatch({
+          type: FILTER_ACTIVITY,
+          payload: countriesFiltered,
         });
-        if (countriesFiltered.length > 0) {
-          dispatch({
-            type: FILTER_ACTIVITY,
-            payload: countriesFiltered,
-          });
-        } else {
-          dispatch({
-            type: FILTER_ACTIVITY,
-            payload: countries,
-          });
-          throw new Error("No hay countries para filtrar");
-        }
       } else {
-        throw new Error("No hay countries para filtrar");
+        alert(
+          "No se encontraron países que cumplan con las condiciones seleccionadas"
+        );
       }
     } catch (error) {
-      console.error("Error en la acción filter_type:", error.message);
+      console.error("Error en la acción filter_activity:", error.message);
     }
   };
 };
 
 export const filter_continent = (continent, countries) => {
+  if (continent === "Todos") {
+    return (dispatch) => {
+      dispatch({
+        type: FILTER_CONTINENT,
+        payload: countries,
+      });
+    };
+  }
   return (dispatch) => {
-    console.log("El continente con la que se deben filtar es:", continent);
-    console.log("Los paises para filtrar en la action son:", countries);
     try {
-      if (countries && countries.length > 0) {
-        const countriesFiltered = countries.filter((country) => {
-          return country.region === continent;
+      if (!countries || countries.length === 0) {
+        throw new Error("No hay países para filtrar");
+      }
+
+      const countriesFiltered = countries.filter((country) => {
+        return country.region === continent;
+      });
+
+      if (countriesFiltered.length > 0) {
+        dispatch({
+          type: FILTER_CONTINENT,
+          payload: countriesFiltered,
         });
-        if (countriesFiltered.length > 0) {
-          dispatch({
-            type: FILTER_CONTINENT,
-            payload: countriesFiltered,
-          });
-        } else {
-          dispatch({
-            type: FILTER_CONTINENT,
-            payload: countries,
-          });
-          throw new Error("No hay countries para filtrar");
-        }
       } else {
-        throw new Error("No hay countries para filtrar");
+        alert(
+          "No se encontraron países que cumplan con las condiciones seleccionadas"
+        );
       }
     } catch (error) {
-      console.error("Error en la acción filter_type:", error.message);
+      console.error("Error en la acción filter_continent:", error.message);
     }
   };
 };
 
-// export const pokeRender = (data) => {
-//   return (dispatch) => {
-//     dispatch({
-//       type: POKE_RENDER,
-//       payload: data,
-//     });
-//   };
-// };
+export const clear_filters = (allCountries) => {
+  return {
+    type: CLEAR_FILTERS,
+    payload: allCountries,
+  };
+};
+
+export const clear_sorts = (allCountries) => {
+  return {
+    type: CLEAR_SORTS,
+    payload: allCountries,
+  };
+};
 
 export const sort = (orden, tipo, currentCountries, filtered) => {
   return (dispatch) => {
     let sortedCountries = [];
-    if (filtered.length > 0) {
+    if (filtered && filtered.length > 0) {
       sortedCountries = [...filtered];
     } else {
       sortedCountries = [...currentCountries];
@@ -189,38 +233,38 @@ export const sort = (orden, tipo, currentCountries, filtered) => {
   };
 };
 
-// export const nextPage = (dispatch) => {
-//   return dispatch({
-//     type: NEXT_PAGE,
-//   });
-// };
-// export const prevPage = (dispatch) => {
-//   return dispatch({
-//     type: PREV_PAGE,
-//   });
-// };
-// export const setPage = (numberPage) => {
-//   return (dispatch) => {
-//     dispatch({
-//       type: SET_PAGE,
-//       payload: numberPage,
-//     });
-//   };
-// };
+export const nextPage = (dispatch) => {
+  return dispatch({
+    type: NEXT_PAGE,
+  });
+};
+export const prevPage = (dispatch) => {
+  return dispatch({
+    type: PREV_PAGE,
+  });
+};
+export const setPage = (numberPage) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_PAGE,
+      payload: numberPage,
+    });
+  };
+};
 
-// export const currentCountries = (
-//   pokeRender,
-//   indexOfFirstPokemon,
-//   indexOfLastPokemon
-// ) => {
-//   const currentPokemon = pokeRender.slice(
-//     indexOfFirstPokemon,
-//     indexOfLastPokemon
-//   );
-//   return (dispatch) => {
-//     dispatch({
-//       type: CURRENT_POKEMONS,
-//       payload: currentPokemon,
-//     });
-//   };
-// };
+export const doCurrentCountries = (
+  countryRender,
+  indexOfFirstCountry,
+  indexOfLastCountry
+) => {
+  const currentCountry = countryRender.slice(
+    indexOfFirstCountry,
+    indexOfLastCountry
+  );
+  return (dispatch) => {
+    dispatch({
+      type: DO_CURRENT_COUNTRIES,
+      payload: currentCountry,
+    });
+  };
+};

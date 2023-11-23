@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.select {
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 3cm;
+}
+
+.button {
+  padding: 8px;
+  cursor: pointer;
+  background-color: #f35050; /* Amarillo */
+  color: #333; /* Negro */
+}
