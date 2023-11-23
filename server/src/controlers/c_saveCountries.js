@@ -10,7 +10,7 @@ const c_saveCountries = async () => {
   for (const entidad of data) {
     n++;
     entidad.id = entidad.cca3;
-    entidad.name = entidad.name.common;
+    entidad.name = entidad.translations.spa.common;
     entidad.flag = entidad.flags.svg;
     if (entidad.subregion == undefined) {
       entidad.subregion = "Subregion no data";
